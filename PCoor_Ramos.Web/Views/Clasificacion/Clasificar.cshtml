@@ -1,0 +1,56 @@
+﻿@model PCoor_Ramos.Web.Models.ClasificacionViewModel
+
+@{
+    ViewData["Title"] = "Clasificar Reclamo";
+}
+
+<h2>Clasificación del Reclamo</h2>
+
+<form asp-action="Clasificar" method="post">
+    <input type="hidden" asp-for="ReclamoId" />
+
+    <div class="mb-3">
+        <label asp-for="TipoClasificacion" class="form-label">Tipo de Clasificación</label>
+        <select asp-for="TipoClasificacion" class="form-select" id="tipoClasificacion">
+            <option value="">-- Seleccione --</option>
+            <option value="Reclamo">Reclamo Formal</option>
+            <option value="Asesoria">Asesoría</option>
+            <option value="Aviso">Aviso de Infracción</option>
+        </select>
+        <span asp-validation-for="TipoClasificacion" class="text-danger"></span>
+    </div>
+
+    <div id="campoAsesoria" class="mb-3 d-none">
+        <label asp-for="MotivoAsesoria" class="form-label">Motivo de la Asesoría</label>
+        <textarea asp-for="MotivoAsesoria" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="MotivoAsesoria" class="text-danger"></span>
+    </div>
+
+    <div id="campoAviso" class="mb-3 d-none">
+        <label asp-for="DetalleAviso" class="form-label">Detalle del Aviso de Infracción</label>
+        <textarea asp-for="DetalleAviso" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="DetalleAviso" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar Clasificación</button>
+    <a asp-controller="Reclamo" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@* Manejo del DOM, se usa JS porque es codigo que se ejecuta en el navegador del cliente.(Jose Ramos) *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.getElementById("tipoClasificacion").addEventListener("change", function () {
+            const tipo = this.value.toLowerCase();
+            document.getElementById("campoAsesoria").classList.add("d-none");
+            document.getElementById("campoAviso").classList.add("d-none");
+
+            if (tipo === "asesoria") {
+                document.getElementById("campoAsesoria").classList.remove("d-none");
+            } else if (tipo === "aviso") {
+                document.getElementById("campoAviso").classList.remove("d-none");
+            }
+        });
+    </script>
+}

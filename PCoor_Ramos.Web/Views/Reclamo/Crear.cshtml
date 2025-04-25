@@ -1,0 +1,84 @@
+﻿@model PCoor_Ramos.Web.Models.ReclamoViewModel
+
+@{
+    ViewData["Title"] = "Crear Reclamo";
+}
+
+<h2>Crear Reclamo</h2>
+
+<form asp-action="Crear" method="post">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Reclamo.NombreProveedor" class="form-label">Nombre del Proveedor</label>
+            <input asp-for="Reclamo.NombreProveedor" class="form-control" />
+            <span asp-validation-for="Reclamo.NombreProveedor" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Reclamo.DireccionProveedor" class="form-label">Dirección del Proveedor</label>
+            <input asp-for="Reclamo.DireccionProveedor" class="form-control" />
+            <span asp-validation-for="Reclamo.DireccionProveedor" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Reclamo.TelefonoProveedor" class="form-label">Teléfono</label>
+            <input asp-for="Reclamo.TelefonoProveedor" class="form-control" id="telefono" />
+            <span asp-validation-for="Reclamo.TelefonoProveedor" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Reclamo.MontoReclamado" class="form-label">Monto Reclamado</label>
+            <input asp-for="Reclamo.MontoReclamado" class="form-control" id="monto" />
+            <span asp-validation-for="Reclamo.MontoReclamado" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label asp-for="Reclamo.DetalleReclamo" class="form-label">Detalle del Reclamo</label>
+            <textarea asp-for="Reclamo.DetalleReclamo" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Reclamo.DetalleReclamo" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Reclamo.EstadoId" class="form-label">Estado Inicial</label>
+            <select asp-for="Reclamo.EstadoId" asp-items="Model.Estados" class="form-select"></select>
+            <span asp-validation-for="Reclamo.EstadoId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Reclamo.EmpleadoId" class="form-label">Empleado</label>
+            <select asp-for="Reclamo.EmpleadoId" asp-items="Model.Empleados" class="form-select" disabled></select>
+            <input type="hidden" asp-for="Reclamo.EmpleadoId" />
+            <span asp-validation-for="Reclamo.EmpleadoId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <label asp-for="Reclamo.ConsumidorId" class="form-label">Consumidor</label>
+            <div class="input-group">
+                <select asp-for="Reclamo.ConsumidorId" asp-items="Model.Consumidores" class="form-select"></select>
+                <a asp-controller="Consumidor" asp-action="Crear" class="btn btn-outline-primary">
+                    <i class="bi bi-person-plus"></i> Nuevo
+                </a>
+            </div>
+            <span asp-validation-for="Reclamo.ConsumidorId" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">Guardar Reclamo</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#telefono').mask('0000-0000');
+            $('#monto').mask('000000.00', { reverse: true });
+        });
+    </script>
+}
+

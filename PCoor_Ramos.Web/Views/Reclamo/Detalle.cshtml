@@ -1,0 +1,50 @@
+﻿@model PCoor_Ramos.Domain.Entities.Reclamo
+
+@{
+    ViewData["Title"] = "Detalle del Reclamo";
+}
+
+<h2 class="mb-4">Detalle del Reclamo</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Proveedor</dt>
+            <dd class="col-sm-8">@Model.NombreProveedor</dd>
+
+            <dt class="col-sm-4">Dirección del Proveedor</dt>
+            <dd class="col-sm-8">@Model.DireccionProveedor</dd>
+
+            <dt class="col-sm-4">Teléfono del Proveedor</dt>
+            <dd class="col-sm-8">@Model.TelefonoProveedor</dd>
+
+            <dt class="col-sm-4">Detalle del Reclamo</dt>
+            <dd class="col-sm-8">@Model.DetalleReclamo</dd>
+
+            <dt class="col-sm-4">Monto Reclamado</dt>
+            <dd class="col-sm-8">@Model.MontoReclamado.ToString("C")</dd>
+
+            <dt class="col-sm-4">Fecha de Ingreso</dt>
+            <dd class="col-sm-8">@Model.FechaIngreso.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Estado Actual</dt>
+            <dd class="col-sm-8">@Model.Estado?.Nombre</dd>
+
+            <dt class="col-sm-4">Empleado Asignado</dt>
+            <dd class="col-sm-8">@($"{Model.Empleado?.Nombres} {Model.Empleado?.Apellidos}")</dd>
+
+            <dt class="col-sm-4">Consumidor</dt>
+            <dd class="col-sm-8">@($"{Model.Consumidor?.Nombre} {Model.Consumidor?.Apellido}")</dd>
+
+            <dt class="col-sm-4">DUI del Consumidor</dt>
+            <dd class="col-sm-8">@Model.Consumidor?.Dui</dd>
+        </dl>
+        <div class="mt-4">
+            <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+            @if (Model.EstadoId == 1)
+            {
+                <a asp-controller="Clasificacion" asp-action="Clasificar" asp-route-id="@Model.Id" class="btn btn-warning ms-2">Clasificar Reclamo</a>
+            }
+        </div>
+    </div>
+</div>

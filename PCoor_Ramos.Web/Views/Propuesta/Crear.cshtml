@@ -1,0 +1,26 @@
+﻿@model PCoor_Ramos.Web.Models.PropuestaViewModel
+
+@{
+    ViewData["Title"] = "Nueva Propuesta";
+}
+
+<h2 class="mb-4">Establecer Propuesta para Reclamo</h2>
+
+<form asp-action="Crear" method="post" class="card shadow p-4">
+    <input type="hidden" asp-for="ReclamoId" />
+
+    <div class="mb-3">
+        <label asp-for="DetallePropuesta" class="form-label">Detalle de la Propuesta</label>
+        <textarea asp-for="DetallePropuesta" class="form-control" rows="4" placeholder="Describa la propuesta que hace el proveedor..."></textarea>
+        <span asp-validation-for="DetallePropuesta" class="text-danger"></span>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-controller="Reclamo" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

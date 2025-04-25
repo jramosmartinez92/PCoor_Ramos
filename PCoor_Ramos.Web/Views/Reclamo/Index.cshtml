@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PCoor_Ramos.Domain.Entities.Reclamo>
+
+@{
+    ViewData["Title"] = "Listado de Reclamos";
+}
+
+<h2 class="mb-4">Listado de Reclamos</h2>
+
+<a asp-action="Crear" class="btn btn-primary mb-3">Nuevo Reclamo</a>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Proveedor</th>
+            <th>Teléfono</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Empleado</th>
+            <th>Consumidor</th>
+            <th>Fecha Ingreso</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.NombreProveedor</td>
+                <td>@item.TelefonoProveedor</td>
+                <td>@item.MontoReclamado.ToString("C")</td>
+                <td>@item.Estado?.Nombre</td>
+                <td>@($"{item.Empleado?.Nombres} {item.Empleado?.Apellidos}")</td>
+                <td>@($"{item.Consumidor?.Nombre} {item.Consumidor?.Apellido}")</td>
+                <td>@item.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Detalle" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                        Ver
+                    </a>
+                    @if (item.EstadoId == 1) // Pendiente de Clasificar segun requisito (Jose Ramos)
+                    {
+                        <a asp-controller="Clasificacion" asp-action="Clasificar" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                            Clasificar
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
