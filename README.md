@@ -59,7 +59,7 @@ Clave: 1234
 
 ### 1. Restaurar la base de datos
 
-- Opción 1: Ejecuta el script SQL ubicado en `Scripts/PCoor_Ramos.sql`
+- Opción 1: Ejecuta el script SQL ubicado en `PCoor_Ramos.sql`
 - Opción 2: Restaura desde el archivo `.bak` si tienes SQL Server Management Studio
 
 ### 2. Configurar la cadena de conexión
